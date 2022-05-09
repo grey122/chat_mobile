@@ -18,4 +18,7 @@ class AssetsIcons {
   static const String shapes = "assets/icons/shapes.svg";
   static const String picture = "assets/icons/picture.svg";
   static const String audio = "assets/icons/audio.svg";
+  static const String bell = "assets/icons/bell.svg";
+  static const String home = "assets/icons/home.svg";
+  static const String recycle = "assets/icons/recyle.svg";
 }

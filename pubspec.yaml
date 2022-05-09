@@ -33,6 +33,8 @@ dependencies:
   hive: ^2.1.0
   hive_flutter: ^1.1.0
 
+# as you can see not so many packages was used, i used set state as a primary statemangement 
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

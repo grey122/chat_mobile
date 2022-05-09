@@ -90,12 +90,12 @@ class _ConversationsState extends State<Conversations> {
     super.initState();
   }
 
+  final messageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     FocusNode focusNode = FocusNode(); // put this up later
 
     // var repliedMessage = "";
-    final messageController = TextEditingController();
 
     return WillPopScope(
       onWillPop: () {

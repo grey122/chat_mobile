@@ -152,29 +152,98 @@ class _ChatsState extends State<Chats> {
                     return Slidable(
                       key: ValueKey(index),
                       // The start action pane is the one at the left or the top side.
-                      startActionPane: ActionPane(
+                      startActionPane: const ActionPane(
                         // A motion is a widget used to control how the pane animates.
-                        motion: const ScrollMotion(),
+                        motion: ScrollMotion(),
 
                         // A pane can dismiss the Slidable.
-                        dismissible: DismissiblePane(onDismissed: () {}),
+                        // dismissible: DismissiblePane(onDismissed: () {}),
 
                         // All actions are defined in the children parameter.
                         children: [
-                          // A SlidableAction can have an icon and/or a label.
-                          SlidableAction(
-                            onPressed: (_) {},
-                            backgroundColor: const Color(0xFFFE4A49),
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: 'Delete',
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: ColorsConst.iconConvocolor,
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: SvgIcon(
+                                  AssetsIcons.camera,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
-                          SlidableAction(
-                            onPressed: (_) {},
-                            backgroundColor: const Color(0xFF21B7CA),
-                            foregroundColor: Colors.white,
-                            icon: Icons.share,
-                            label: 'Share',
+
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: ColorsConst.greyContainer,
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: SvgIcon(AssetsIcons.phone),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 1),
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: ColorsConst.greyContainer,
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: SvgIcon(AssetsIcons.video),
+                              ),
+                            ),
+                          ),
+
+                          // A SlidableAction can have an icon and/or a label.
+                        ],
+                      ),
+
+                      endActionPane: const ActionPane(
+                        motion: ScrollMotion(),
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: ColorsConst.greyContainer,
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: SvgIcon(
+                                  AssetsIcons.home,
+                                  // color: ColorsConst.iconConvocolor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: ColorsConst.greyContainer,
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: SvgIcon(
+                                  AssetsIcons.bell,
+                                  // color: ColorsConst.iconConvocolor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.red,
+                            child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: SvgIcon(
+                                  AssetsIcons.recycle,
+                                )
+                                // color: ColorsConst.iconConvocolor,
+                                ),
                           ),
                         ],
                       ),
@@ -202,6 +271,14 @@ class _ChatsState extends State<Chats> {
                               ),
                             ),
                           ),
+                          trailing: Check(
+                              isChecked: userslist[index].isTime,
+                              onChanged: (_) {
+                                usersBox.put(
+                                    userslist[index].id,
+                                    userslist[index].copywith(
+                                        isTime: !userslist[index].isTime));
+                              }),
                           title: Text(
                             userslist[index].tittle,
                             style: const TextStyle(
@@ -301,22 +378,27 @@ class UserslistAvatar extends StatelessWidget {
 class Check extends StatelessWidget {
   const Check({
     Key? key,
+    required this.isChecked,
+    required this.onChanged,
   }) : super(key: key);
+
+  final bool isChecked;
+  final void Function(bool?) onChanged;
 
   @override
   Widget build(BuildContext context) {
-    var _makeAnanymous = true;
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+    return Theme(
+      data: ThemeData(unselectedWidgetColor: Colors.grey),
       child: Checkbox(
         // side: BorderSide.,
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         shape: const CircleBorder(),
-        activeColor: ColorsConst.greyContainer,
-        value: _makeAnanymous,
-        onChanged: (bool? value) {
-          _makeAnanymous = value!;
-        },
+        activeColor: Colors.grey,
+        checkColor: Colors.white,
+        side: const BorderSide(color: Colors.grey, width: 2),
+        focusColor: Colors.white,
+        value: isChecked,
+        onChanged: onChanged,
       ),
     );
   }
