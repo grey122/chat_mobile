@@ -137,7 +137,7 @@ class _ChatsState extends State<Chats> {
                                           users: userslist[index],
                                         )));
                               }),
-                              child: userslistAvatar(user: userslist[index]),
+                              child: UserslistAvatar(user: userslist[index]),
                             );
                           },
                         ))
@@ -150,6 +150,7 @@ class _ChatsState extends State<Chats> {
                   itemCount: userslist.length,
                   itemBuilder: ((context, index) {
                     return Slidable(
+                      key: ValueKey(index),
                       // The start action pane is the one at the left or the top side.
                       startActionPane: ActionPane(
                         // A motion is a widget used to control how the pane animates.
@@ -163,14 +164,14 @@ class _ChatsState extends State<Chats> {
                           // A SlidableAction can have an icon and/or a label.
                           SlidableAction(
                             onPressed: (_) {},
-                            backgroundColor: Color(0xFFFE4A49),
+                            backgroundColor: const Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
                             icon: Icons.delete,
                             label: 'Delete',
                           ),
                           SlidableAction(
                             onPressed: (_) {},
-                            backgroundColor: Color(0xFF21B7CA),
+                            backgroundColor: const Color(0xFF21B7CA),
                             foregroundColor: Colors.white,
                             icon: Icons.share,
                             label: 'Share',
@@ -231,8 +232,8 @@ class _ChatsState extends State<Chats> {
   }
 }
 
-class userslistAvatar extends StatelessWidget {
-  const userslistAvatar({
+class UserslistAvatar extends StatelessWidget {
+  const UserslistAvatar({
     Key? key,
     required this.user,
   }) : super(key: key);
@@ -292,6 +293,30 @@ class userslistAvatar extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Check extends StatelessWidget {
+  const Check({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var _makeAnanymous = true;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Checkbox(
+        // side: BorderSide.,
+        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: const CircleBorder(),
+        activeColor: ColorsConst.greyContainer,
+        value: _makeAnanymous,
+        onChanged: (bool? value) {
+          _makeAnanymous = value!;
+        },
       ),
     );
   }
